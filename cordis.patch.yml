@@ -1,0 +1,20 @@
+# Profile layer contributed by dsh-cascade-model-picker.
+#
+# The composer's `conversation.input.model` seat belongs to the built-in row
+# `ui-model-selection`, declared by the `@deepseek-ai/dsh-web-app` bundle. A patch
+# layer cannot rename that row — the Loader compares the patched `name` with the
+# declared one and drops the whole patch on a mismatch ("patch: name mismatch for
+# \"ui-model-selection\" ... skipping") — so this plugin uses the two supported
+# operations instead:
+#
+#   1. `insert` adds the plugin's own row (an id of its own; the seat name it
+#      registers is what the shell mounts);
+#   2. the built-in row is restated — every key a patch touches must keep its
+#      declared name — and disabled, which takes the stock Model/Effort menu out
+#      of the client module table so only one component owns the seat.
+- insert:
+    - id: cascade-model-selection
+      name: 'dsh-cascade-model-picker'
+- id: ui-model-selection
+  name: '@deepseek-ai/dsh-client-ui-model-selection'
+  disabled: true

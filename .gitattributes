@@ -1,0 +1,4 @@
+# Ship the built bundle byte-for-byte: keep LF everywhere and let git treat
+# images as opaque binaries.
+* text=auto eol=lf
+*.png binary
