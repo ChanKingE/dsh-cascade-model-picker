@@ -1,5 +1,7 @@
 # dsh-cascade-model-picker
 
+[English](README.md) | **简体中文**
+
 给 **DeepSeek Harness** 的**级联模型选择器**：把 composer 上原来的「Model → Effort 两级下钻菜单」换成带搜索的 **provider × model 双列面板**。
 
 <p align="center">

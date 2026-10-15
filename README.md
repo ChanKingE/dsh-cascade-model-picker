@@ -1,5 +1,7 @@
 # dsh-cascade-model-picker
 
+**English** | [简体中文](README.zh.md)
+
 A **cascade model picker** for **DeepSeek Harness**: it replaces the composer's two-level
 «Model → Effort» drill-down menu with a searchable **provider × model two-column panel**.
 
