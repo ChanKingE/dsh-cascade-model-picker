@@ -22,6 +22,7 @@ import type {} from '@deepseek-ai/dsh-client-locale/client'
 import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import type {} from '@deepseek-ai/dsh-client-ui-session/client'
 import type { TranslateNS } from '@deepseek-ai/dsh-client-ui-slots'
+import { IconDataOutlineRegular } from '@deepseek-ai/dsh-client-ui-primitives'
 import type { ModelDirectoryState } from './directory.ts'
 import { ModelDirectoryResolver } from './service.ts'
 import type { ModelSelectInjected } from './slots.ts'
@@ -120,16 +121,18 @@ export function apply(ctx: ClientContext): void {
   // a locale change reaches the next publish.
   ctx.plugin(ModelDirectoryResolver, { blockReason: () => t('blocked.composer') })
 
-  // Entry 1: the /model popupSelect over the shared directory. The command
-  // description is registry-held text: it reads t() once at registration and
-  // refreshes only on re-registration, not on locale change.
+  // Entry 1: the /model popupSelect over the shared directory. `label`,
+  // `description`, and `icon` are read on every candidate pass, so a locale
+  // change reaches the next menu build without re-registration.
   ctx.inject(['commandUi', 'modelDirectories'], (scope: ClientContext) => {
     const command = scope.get('commandUi') as CommandUiContract
     const models = scope.modelDirectories
     const sessions = scope.sessions
     scope.effect(() => command.register({
       name: 'model',
-      description: t('command.description'),
+      label: () => t('command.label'),
+      description: () => t('command.description'),
+      icon: IconDataOutlineRegular,
       available: session => sessions.subagentAddress(session.sessionId) === undefined,
       ui: {
         kind: 'popupSelect',
